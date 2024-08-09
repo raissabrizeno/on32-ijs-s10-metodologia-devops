@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/    
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     # clone do repositório
@@ -31,6 +31,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+
+    # instala dependencias e roda os testes
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
 
     # lint para garantir que o código segue os padrões definidos
     - name: Run ESLint
@@ -44,17 +49,11 @@ jobs:
     - name: TypeScript Check
       run: npx tsc --noEmit
 
-    # instala dependencias e roda os testes
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-
     # setamos o Docker Buildx no ambiente onde o job está sendo executado. 
     # Permite construir imagens Docker para várias arquiteturas 
-    
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-      
+
     # faz login no docker hub 
     - name: Log in to Docker Hub
       uses: docker/login-action@v3

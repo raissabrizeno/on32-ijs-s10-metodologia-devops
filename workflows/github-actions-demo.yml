@@ -37,6 +37,8 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_LOGIN }}
         password: ${{ secrets.DOCKER_TOKEN }}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
 
     - name: Build and push
       uses: docker/build-push-action@v4

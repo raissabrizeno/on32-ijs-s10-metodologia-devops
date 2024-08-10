@@ -69,5 +69,5 @@ jobs:
       with:
         context: exercicios/para-sala/users-api-aula
         push: true
-        tags: raissabrizeno/users-api-aula:1.0.0
+        tags: raissabrizeno/aula-met-devops:2.0.1
         
